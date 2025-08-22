@@ -2,20 +2,57 @@
 import csv
 import random
 import time
-'''
-MORE CHALLENGES:
-3. Allow users to select from different lists of questions
-2. User profiles (Admin users can create new lists of questions, normal users can just select from lists of questions to do)
-1. Give different point amounts based on how quickly they answer (Use import time, time.time() then subtract the end and start time)
-'''
-#Intro
-print('Welcome to my quiz Game!')
-print('I will ask you 10 multiple choice questions and give you your score at the end.')
-print('Let us get started!')
+
+#Info for admin
+admin_username = "admin"
+admin_password = "adminpass"
+
+# User Profiles
+def login():
+    print('---------------------LOGIN----------------------')
+    print('Type (exit) to leave')
+    username = input("Username: ")
+    if username == 'exit':
+        print('Thank you for playing!')
+        exit()
+    password = input("Password: ")
+
+    if username == admin_username and password == admin_password:
+        print("You logged in as admin!")
+        return "admin"
+    else:
+        print(f"Welcome {username}!")
+        return "user"
+    
+#Lets the User create quiz questions
+def create_quiz(filename):
+    #Lets the user append questions to csv
+    with open(filename, 'a', newline='') as file:
+        writer = csv.writer(file)
+
+        while True:
+            q = input("Enter Question: ")
+            a = input("Choice A: ")
+            b = input("Choice B: ")
+            c = input("Choice C: ")
+            d = input("Choice D: ")
+            ans = input("Correct Answer(A/B/C/D): ").upper()
+            if ans not in ['A', 'B', 'C', 'D']:
+                print('Thats not an option try again!')
+                continue
+            
+            #Writes the question into the csv
+            writer.writerow([q, a, b, c, d, ans])
+            print('You added the question!')
+
+            #Lets the admin add more questions
+            if input("Do you want to add another question? y/n\n").lower() != 'y':
+                break
 
 #Loads Questions
 def load_questions(filename):
     questions = []
+    #Translates what the user types into multiple choice
     letter_to_index = {'A': 1, 'B': 2, 'C': 3, 'D': 4}
 
     #Opens the CSV
@@ -45,6 +82,7 @@ def ask_question(q):
     for i, option in enumerate(q['choices'], start=1):
         print(f"{i}. {option}")
     
+    #Calculates the time from when the question starts
     start_time = time.time()
     
     while True:
@@ -55,7 +93,9 @@ def ask_question(q):
         else:
             print('That is not an option. Try again...')
     
+    #Calculates the time until question is answered
     end_time = time.time()
+    #Total amount of time per question
     duration = end_time - start_time
     
     #Returns the users answer and how long they took to answer the question
@@ -63,13 +103,13 @@ def ask_question(q):
     return correct_answ, duration
 
 #Runs the quiz
-def run_quiz():
-    questions = load_questions("Quiz_game/questions.csv")
+def run_quiz(filename):
+    questions = load_questions(filename)
     #randomly picks questions
     selected = random.sample(questions,10)
     #starting score
     score = 0
-    #tells the user when they get the question right or wrong
+    #tells the user when they get the question right or wrong and gives points depending on time
     for q in selected:
         correct_answ, duration = ask_question(q)
         if correct_answ:
@@ -85,15 +125,28 @@ def run_quiz():
     print('\n Your final score is:', score)
 
 #Runs the code and keeps going unless they want to end
-while True:
-    run_quiz()
+def start():
     while True:
-        play_again = input('Do you want to play again? y/n\n').lower()
-        if play_again == 'n':
-            print('Thank you for playing!')
-            exit()
-        elif play_again == 'y':
-            break
-        else:
-            print('That is not an option')
-            continue
+        filename = "Quiz_game/questions.csv"
+        role = login()
+        #Admin can make questions
+        if role == "admin":
+            print('Here you can make more question for the users to play!')
+            create_quiz(filename)
+            print('Logging out..\n')
+        #User can just play the quiz
+        elif role == "user":
+            print('\n\n\n\nWelcome to my quiz Game!')
+            print('I will ask you 10 multiple choice questions and give you your score at the end.')
+            print('Let us get started!')
+            run_quiz(filename)
+            play_again = input('Do you want to play again? y/n\n').lower()
+            if play_again == 'n':
+                print('Thank you for playing!')
+                continue
+            elif play_again == 'y':
+                run_quiz(filename)
+
+#Runs the Program        
+start()
+                
