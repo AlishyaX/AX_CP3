@@ -23,7 +23,7 @@ int main(){
     // With numbers you can use apostrophes as commas and it wont mess up anything
 
 // What is a basic way to generate random numbers in C++?
-    //
+    // The basic way is to use % #U want the random to be until.
 
 // What is an array?
     //
