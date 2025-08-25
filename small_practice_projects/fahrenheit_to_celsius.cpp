@@ -9,4 +9,5 @@ int main(){
     cin >> tempf;
     double celsius = (tempf - 32)* 5/9;
     std::cout << tempf << " degrees Farenheit is " << celsius << " degrees Celsius" << endl;
+    return 0;
 }
