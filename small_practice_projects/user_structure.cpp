@@ -56,7 +56,7 @@ int main(){
         //Creates a new user object
         User newUser = {inputUsername, inputPassword, inputIsAdmin};
 
-        // Checks to see if the user in in the existing list and if so returns true
+        // Checks to see if the user is in the existing list and if so returns true
         for (const auto& user : existingUsers) {
             if (user == newUser) {
                 userExists = true;
@@ -72,7 +72,7 @@ int main(){
             cout << "Welcome" << endl;
             cout << "User: " << newUser.username << endl;
         }
-        
+
         string choice;
         cout << "Do you want to log in again(y or n): ";
         cin >> choice;
