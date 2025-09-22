@@ -36,7 +36,9 @@ Pikachu has been added to your team!
  #include <iostream>
 
  using namespace std;
+ enum Type{
 
+ }
  enum Menu{
     Explore = 1,
     Battle,
@@ -44,6 +46,7 @@ Pikachu has been added to your team!
     Exit
  };
 void explore(){
+    // Let them pick their pokemon to start
 
 };
 
@@ -54,6 +57,8 @@ void battle(){
 void heal(){
 
 };
+
+
 int main(){
     int input;
     cout << "Welcome to Your Calculator!" << endl;
@@ -67,8 +72,12 @@ int main(){
         "3. Heal Pokémon" << endl <<
         "4. Exit" << endl <<
         "Enter your choice(1-4): ";
-        cin >> input;
 
+        while(!(cin >> input)){
+            cout << "Please enter a number option" << endl;
+            cin.clear();
+            cin.ignore();
+        }
     
         if (input == Menu::Explore){
             explore();
