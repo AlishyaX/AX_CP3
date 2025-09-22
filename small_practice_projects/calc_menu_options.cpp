@@ -84,7 +84,13 @@ void division(){
         "4. Division" << endl <<
         "5. Exit" << endl <<
         "Select(1-5): ";
-        cin >> input;
+
+        while(!(cin >> input)){
+            cout << "Please enter a number option" << endl;
+            cin.clear();
+            cin.ignore();
+        }
+        
 
     
         if (input == Menu::Add){
