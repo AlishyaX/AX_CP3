@@ -1,27 +1,11 @@
 // AX Calculator Menu Options Program
- /*
- 
- INSTRUCTIONS:
-Write a program that creates a user menu for a basic calculator using enumeration in C++. The calculator should be able to perform addition, subtraction, multiplication, and division. The program should display a menu of options, allow the user to select an operation, input two numbers, perform the calculation, and display the result. The program must continue to run till the user chooses to exit and have proper input handling. 
 
-OUTPUT EXAMPLE: 
-
-Calculator Menu:
-
-Addition
-Subtraction
-Multiplication
-Division
-Exit
-Enter your choice (1-5): 1 Enter first number: 10 Enter second number: 5 Result: 10 + 5 = 15
- 
- 
- */
 
  #include <iostream>
 
  using namespace std;
 
+ // Enumerator Menu
  enum Menu{
     Add = 1,
     Sub,
@@ -30,6 +14,7 @@ Enter your choice (1-5): 1 Enter first number: 10 Enter second number: 5 Result:
     Exit
 };
 
+// All my functions for each equation
 void addition(){
     float add1;
     float add2;
@@ -39,7 +24,7 @@ void addition(){
     cout << "Enter another number: ";
     cin >> add2;
     
-    cout << "The output is: " << (add1+add2) << endl;
+    cout << "Result: "<< add1 << " + " << add2 << " = "<< (add1+add2) << endl;
 }
 
 void subtraction(){
@@ -51,7 +36,7 @@ void subtraction(){
     cout << "Enter another number: ";
     cin >> sub2;
     
-    cout << "The output is: " << (sub1-sub2) << endl;
+    cout << "Result: "<< sub1 << " - " << sub2 << " = "<< (sub1-sub2) << endl;
 }
 
 void multiplication(){
@@ -63,7 +48,7 @@ void multiplication(){
     cout << "Enter another number: ";
     cin >> mult2;
     
-    cout << "The output is: " << (mult1*mult2) << endl;
+    cout << "Result: "<< mult1 << " x " << mult2 << " = "<< (mult1*mult2) << endl;
 }
 
 void division(){
@@ -75,35 +60,41 @@ void division(){
     cout << "Enter another number: ";
     cin >> div2;
     
-    cout << "The output is: " << (div1/div2) << endl;
+    // If the user enters 0
+    if (div1 == 0){
+        cout << "You can't divide something by zero!";
+    } else{
+    cout << "Result: "<< div1 << " / " << div2 << " = "<< (div1/div2) << endl;
+    };
 }
 
 
 
  int main(){
     int input;
+    cout << "Welcome to Your Calculator!" << endl;
 
+    // Keeps running until they exit
+    while(true){
+        cout <<
+        "\n\nCalculator Menu:"
+        "\n1. Addition" << endl <<
+        "2. Subtraction" << endl <<
+        "3. Multiplication" << endl <<
+        "4. Division" << endl <<
+        "5. Exit" << endl <<
+        "Select(1-5): ";
+        cin >> input;
 
     
-    cout <<
-    "Calculator Menu:"
-    "\n1. Addition" << endl <<
-    "2. Subtraction" << endl <<
-    "3. Multiplication" << endl <<
-    "4. Division" << endl <<
-    "5. Exit" << endl <<
-    "Select: ";
-    cin >> input;
-
-    while(true){
         if (input == Menu::Add){
-            addition;
+            addition();
         }else if(input == Menu::Sub){
-            subtraction;
+            subtraction();
         }else if(input == Menu::Mult){
-            multiplication;
+            multiplication();
         }else if(input == Menu::Div){
-            division;
+            division();
         }else if(input == Menu::Exit){
             cout << "Thank you for using my Calculator!" << endl;
             break;
