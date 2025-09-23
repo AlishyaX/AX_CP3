@@ -32,19 +32,57 @@ Pikachu has been added to your team!
 
 */
 
+#include <iostream>
 
- #include <iostream>
+using namespace std;
+ // Enumeration for pokemon types
+enum Type{
+    Fire,
+    Water,
+    Grass,
+    Electric, // electric beats air and water
+    Air // beats fire
 
- using namespace std;
- enum Type{
+};
 
- }
- enum Menu{
+ // Enumeration for the menu
+enum Menu{
     Explore = 1,
     Battle,
     Heal,
     Exit
- };
+};
+
+struct Attack{
+    string name;
+    int damage;
+
+};
+
+struct Pokemon{
+    string name;
+    string type;
+    int maxHP;
+    int currentHP;
+    int level;
+    
+    void heal(){
+        currentHP = maxHP;
+        cout << name << "healed!" << endl;
+    };
+    
+
+};
+
+vector<Pokemon> wild_pokemons = {
+    {"Charmander", "Fire", 50, 50, 1},
+    {"Squirtle", ...}
+};
+
+vector<Pokemon> user_pokemons = {
+
+};
+
 void explore(){
     // Let them pick their pokemon to start
 
@@ -54,7 +92,9 @@ void battle(){
 
 };
 
-void heal(){
+void healing(){
+    
+
 
 };
 
