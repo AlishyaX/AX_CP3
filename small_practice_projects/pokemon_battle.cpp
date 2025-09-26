@@ -1,42 +1,5 @@
 // AX Pokemon Battle Program
-
-/*
-
-INSTRUCTIONS:
-Write a program that creates a Pokémon battle game using structures for Pokémon and enumeration for the menu in C++. The game should allow users to explore (find Pokémon), battle, heal Pokémon, and exit the game. Implement structures for Pokémon that include names, max HP, attacks, and level. Use enumeration for the main menu options.
-
-The game must include the following features:
-
-A main menu with options to explore, battle, heal, and exit.
-Exploration feature to find and catch Pokémon.
-Battle system where users can fight against wild Pokémon or other trainers.
-Healing option to restore Pokémon HP.
-Multiple attack options for each Pokémon during battles.
-Different Pokémon types with associated weaknesses and strengths.
-Type-based damage bonuses during battles.
-OUTPUT EXAMPLE:
-
-Pokémon Battle Game Menu:
-
-Explore
-Battle
-Heal Pokémon
-Exit
-Enter your choice (1-4): 1
-
-You found a wild Pikachu! Do you want to catch it? (Y/N): Y
-
-Pikachu has been added to your team!
-
-CLARIFICATIONS:
-
-You should have 5 different Pokemon types.
-Each type needs at least 1 -2 Pokemon in it. 
-Pokemon should have at least 3 attacks to choose from.
-
-
-
-*/
+// Took a long time and a lot of help from copilot to know what to code and understand it
 
 #include <iostream>
 #include <vector>
@@ -116,6 +79,7 @@ vector<Pokemon> wild_pokemons = {
 // make a new vector to hold all of the pokemons the users have
 vector<Pokemon> user_pokemons;
 
+// This shows each of the pokemon strengths and weaknesses
 float getTypeMultiplier(Type attacker, Type defender){
     // These are the different attacks and what it will return in each circumstance
     if (attacker == Electric && (defender == Water || defender == Air)) return 1.5;
@@ -144,6 +108,7 @@ void explore(){
     if (choice == 'Y' || choice == 'y'){
         // Makes sure that you haven't already caught that pokemon(used Copilot)
         bool alreadyCaught = false;
+        // iterates through the users pokemon vector to check if that pokemon is already there
         for (const auto& p : user_pokemons) {
             if (p == found) {
                 alreadyCaught = true;
@@ -151,6 +116,7 @@ void explore(){
             }
         }
 
+        // catches the pokemon if it isn't already in your team
         if (alreadyCaught) {
             cout << "You already have " << found.name << " in your team!" << endl;
         } else {
@@ -186,6 +152,13 @@ void battle(){
 
     cout << "\nA wild " << enemy.name << " appeared! (HP: " << enemy.currentHP << ", Level: " << enemy.level << ")" << endl;
 
+    // lets the user know why they cant battle if their current hp is less than or equal to 0
+    if (player.currentHP <= 0){
+        cout << player.name << " has no HP left! Heal your Pokemon before battling." << endl;
+        return;
+    }
+
+
     // starts the battle
     // keeps playing until one of the Pokémon runs out of HP
     while (player.currentHP > 0 && enemy.currentHP > 0) {
@@ -198,7 +171,7 @@ void battle(){
         int attackChoice;
         cin >> attackChoice;
 
-        //(used Copilot)
+        //These help make a type-based damage bonus during the battle(used Copilot)
         int damage = player.attacks[attackChoice - 1].damage;
         // Calls the function to see how effective the attack is
         float multiplier = getTypeMultiplier(player.type, enemy.type);
@@ -208,6 +181,8 @@ void battle(){
         cout << player.name << " used " << player.attacks[attackChoice - 1].name 
         // This is a lot more compacted of something like a if statement that explains how effective the attack was
         << "! It's " << (multiplier > 1.0 ? "super effective!" : multiplier < 1.0 ? "not very effective..." : "effective.") << endl;
+        // shows the current HP of both Pokémon
+        cout << player.name << " HP: " << player.currentHP << " | " << enemy.name << " HP: " << enemy.currentHP << endl;
 
 
         // Lets the user know if you defeated the enemy
@@ -237,6 +212,7 @@ void battle(){
         }
     
     };
+
 
 
 };
