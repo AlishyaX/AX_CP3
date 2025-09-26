@@ -212,6 +212,18 @@ void battle(){
         }
     
     };
+    // updates the level of the user's pokemon if they win
+    if (player.currentHP > 0) {
+        player.level += 1;
+        cout << player.name << " leveled up to " << player.level << "!" << endl;
+    }
+    // updates the level of the users pokemon if they lose
+    else {
+        if (player.level > 1) {
+            player.level -= 1;
+            cout << player.name << " leveled down to " << player.level << "!" << endl;
+        }
+    }
 
 
 
