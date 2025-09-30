@@ -44,15 +44,20 @@ How do you write to a CSV?
 - then do file << the data, separating each item with a comma
 
 How do you read a text file?
--
+- shown below
+
 How do you read a CSV file?
--
+- shown below
+
 What is a delimiter?
--
+- what you are going to seperate items by
+- a special character that shows where one item ends and another begins
+
 How do you read an entire CSV?
--
+- shown below
+
 How do you turn items from a CSV into objects of a structure?
--
+- shown below
 
 */
 
@@ -60,7 +65,14 @@ How do you turn items from a CSV into objects of a structure?
 #include <limits> 
 #include <fstream>
 #include <iomanip>
+#include <vector>
 using namespace std;
+
+struct Movie{
+    int id;
+    string title;
+    int year;
+};
 
 int getNumber(const string& prompt){
     int num;
@@ -90,13 +102,46 @@ int main(){
         file.close();
     }
 
-    // CSV
+
+
+/*
     file.open("data.csv");
     if(file.is_open()){
         file << "id, title, year\n"
         << "1, Terminator, 1984\n"
         << "2, Terminator, 1991\n";
         file.close();
+
+    }
+*/
+
+    // Reading a file
+    ifstream ifile;
+    ifile.open("data.csv");
+    string str;
+    vector<Movie> movies;
+    if (file.is_open()){
+        while(!ifile.eof()){
+            getline(ifile, str, ',');
+            if(str.empty()) continue;
+            Movie movie;
+            movie.id = stoi(str);
+
+            getline(ifile, str, ',');
+            movie.title = str;
+
+            getline(ifile, str, ',');
+            movie.year = stoi(str);
+            
+            movies.push_back(movie);
+
+
+        }
+        ifile.close();
+        for(Movie i: movies){
+            cout << i.id << " " << i.title << " " << i.year << endl;
+        }
+
     }
 
 
