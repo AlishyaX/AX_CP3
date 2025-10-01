@@ -104,38 +104,37 @@ int main(){
 
 
 
-/*
+
     file.open("data.csv");
     if(file.is_open()){
         file << "id, title, year\n"
-        << "1, Terminator, 1984\n"
-        << "2, Terminator, 1991\n";
+        << "1, Terminator 1, 1984\n"
+        << "2, Terminator 2, 1991\n";
         file.close();
 
     }
-*/
+
 
     // Reading a file
     ifstream ifile;
     ifile.open("data.csv");
-    string str;
+    string line;
     vector<Movie> movies;
     if (file.is_open()){
-        while(!ifile.eof()){
-            getline(ifile, str, ',');
-            if(str.empty()) continue;
-            Movie movie;
-            movie.id = stoi(str);
+        getline(ifile, line); // to skip the headers
+        while(getline(ifile, line)){
+            istringstream iss(line);
+            string item;
 
-            getline(ifile, str, ',');
-            movie.title = str;
+            Movie movie;\
+            getline(iss, item, ',');
+            movie.id = stoi(item);
+            getline(iss, item, ',');
+            movie.title = item;
+            getline(iss, item, ',');
+            movie.year = stoi(item);
 
-            getline(ifile, str, ',');
-            movie.year = stoi(str);
-            
-            movies.push_back(movie);
-
-
+            movies.push_back(movie); // adds it to th evector
         }
         ifile.close();
         for(Movie i: movies){
