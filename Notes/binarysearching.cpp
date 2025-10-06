@@ -46,22 +46,15 @@ int main(){
     cout << "first: " << first << endl << "second: " << second << endl;
 
 
-    auto movie = parseMovie("Terminator 1,1984");
+    auto movie = parseMovie("A New Hope,1977");
     cout << movie.title << endl << movie.year << endl;
 
    
     fstream file;
     file.open("file.txt", ios::in | ios::out | ios::app);
     if(file.is_open()){
-
-
         file.close();
     }
-
-
-    
-
-
 
     return 0;
 
@@ -85,40 +78,42 @@ What is parsing in the context of working with strings?
 Extracting a piece of information from a string.
 
 How do you extract specific information from a string in programming?
-
+getline can extract a substring up to a specified delimiter.
 
 When a title contains a space, which function should you use to read it properly?
-
+scanf()
 
 Why might extra zeros be added to a string when converting a value without control?
-
+Its filling in for the spaces that are not being used.
 
 How does controlling the string conversion process benefit your program?
-
+It can prevent unexpected issues with formatting and ensure consistency.
 
 Give an example scenario where parsing a string would be necessary in a program.
-
+The code above whern parsing a movie title and year from a string.
 
 When writing to a binary file, what does the first parameter (reinterpret_cast<char*>(&numbers)) represent?
-
+us converting our information from binary back into our characters
 
 Why does the binary file only take 12 bytes while the array of integers might be larger?
-
+Once you converted it to binary will take up less space than if you save it as a string.
 
 What is the main difference between sequential search and binary search?
-
+sequential searching takes a lot of memory.
+binary search is expecting that your list is ordered. if its not ordered it will not find it.
 
 In which type of data structure is binary search most efficient?
-
+any sort of list
 
 What is a key requirement for binary search to work correctly on a list?
-
+The list has to be ordered.
 
 How does sequential search find an item in a list?
-
+it will find the middle item and see if its greater than or less than the number your looking for. If its less then it will cancel everything after.
+Then cuts the list in half again and again until it finds the item.
 
 Why is binary search generally faster than sequential search for large, sorted lists?
-
-
+Since it cuts the list in half each time, it reduces the number of comparisons needed significantly compared to checking each item one by one.
+Sequential search can only compare one item at a time.
 
 */
