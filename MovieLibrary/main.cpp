@@ -39,9 +39,11 @@ Make sure the program is user-friendly and clear.
 
 using namespace std;
 
-vector<Movie> movieLibrary;
 
+// helps with saving the file later
+string currentFilename; // Global variable to store the current filename
 
+// movie structure to hold each movie's details from csv
 struct Movie{
     string title;
     string rating;
@@ -51,6 +53,10 @@ struct Movie{
 
 };
 
+// vector to hold all of the movies in the library
+vector<Movie> movieLibrary;
+
+// main menu options
 enum Menu{
     LoadLibrary = 1,
     ViewMovies,
@@ -60,6 +66,7 @@ enum Menu{
     Exit
 };
 
+// helps me search each of the different search options
 enum SearchMenu{
     ByTitle = 1,
     ByRating,
@@ -70,11 +77,15 @@ enum SearchMenu{
 };
 
 // A lot of help understanding from Copilot
+// Function to load the movie library from a specified CSV file
 void loadLibrary(){
-    // gets the user's filename that they want to have th emovies from
+    // tested with movies.csv and works
+    // I'm pretty sure the fil etested has to be in the Movie Library folder
+    // gets the user's filename that they want to have the movies from
     string fileName;
     cout << "Enter the filename to load the movie library from: ";
     cin >> fileName;
+    currentFilename = fileName; // Store for saving later
 
 
     // Syntax just in case there is an issue with opening the file
@@ -89,6 +100,8 @@ void loadLibrary(){
     // declares a variable to hold each line taken from the file
     string line;
 
+    getline(inputFile, line); // Skip header row if present
+
     // a loop that reads each line from the file line by line
     while (getline(inputFile, line)) {
         // uses stringstream to parse lines seperating them with commas
@@ -100,10 +113,11 @@ void loadLibrary(){
 
         // gets each part of the movie data from each line in the
         getline(ss, movie.title, ',');
-        getline(ss, movie.rating, ',');
         getline(ss, movie.director, ',');
         getline(ss, releaseYearStr, ',');
         getline(ss, movie.genre, ',');
+        getline(ss, movie.rating, ',');
+
 
         // converts the release year back into an integer and stores it
         movie.releaseYear = stoi(releaseYearStr);
@@ -128,23 +142,25 @@ void viewMovies(){
 
         // prints out the header for the movie list(setw is used to format the output)
         cout << left << setw(30) << "Title" 
-            << setw(10) << "Rating" 
-            << setw(25) << "Director" 
-            << setw(15) << "Release Year" 
-            << setw(20) << "Genre" << endl;
-        cout << string(100, '-') << endl;
+            << setw(8) << "Rating" 
+            << setw(35) << "Director" 
+            << setw(14) << "Release Year" 
+            << setw(25) << "Genre" << endl;
+        cout << string(112, '-') << endl;
 
-        // loops through each movie in the library and prints out its details
+        // loops through each movie in the library and prints out its details(the same setw formatting is used to keep it aligned)
         for (const auto& movie : movieLibrary) {
             cout << left << setw(30) << movie.title 
-                << setw(10) << movie.rating 
-                << setw(25) << movie.director 
-                << setw(15) << movie.releaseYear 
-                << setw(20) << movie.genre << endl;
+                << setw(8) << movie.rating 
+                << setw(35) << movie.director 
+                << setw(14) << movie.releaseYear 
+                << setw(25) << movie.genre << endl;
+        }
     }
 }
 
 
+// Function to add a movie to the csv
 void addMovie(){
     //creates a movie struct to hold the new movie data
     Movie newMovie;
@@ -172,11 +188,13 @@ void addMovie(){
     cout << "Enter movie genre: ";
     getline(cin, newMovie.genre);
 
+    // adds the new movie to the movieLibrary vector
     movieLibrary.push_back(newMovie);
     cout << "Movie added successfully!" << endl;
 }
 
 
+// Function to delete a movie in the csv by the title
 void deleteMovie(){
     // checks if there are any movies in the library
     if (movieLibrary.empty()) {
@@ -207,7 +225,8 @@ void deleteMovie(){
 }
 
 
-
+// Function that allows the user to search for movies based on different criteria
+// Seems very complex with copilot help but when broken down to small parts understandable
 void searchMovies(){
     // checks if there are any movies in the library
     if (movieLibrary.empty()) {
@@ -215,7 +234,7 @@ void searchMovies(){
         return;
     }
 
-    //saves the user's search option
+    //stores the user's search option
     int searchOption;
 
     cout << "\nSearch Menu:"
@@ -227,14 +246,14 @@ void searchMovies(){
          << "\n6. Back to Main Menu"
          << "\nSelect(1-6): ";
 
-    //makes sure they input int
+    //makes sure they input an int
     while(!(cin >> searchOption)){
         cout << "Please enter a number option" << endl;
         cin.clear();
         cin.ignore();
     }
 
-    cin.ignore(); // Clear newline character from input buffer
+    cin.ignore(); // Clear newline character just in case there was anything left
 
     // made a variable to hold the search term and search year
     string searchTerm;
@@ -247,7 +266,7 @@ void searchMovies(){
         if(searchOption == ByTitle) {
         cout << "Enter title to search: ";
         getline(cin, searchTerm);
-        // loops through the movie library and checks if the search term is found in the movie title
+        // loops through the movie library and checks if the search term is found in the movie title ... etc for all of the other conditions
         // if it is found, it adds it to the results vector(same with all of the other options)
         for(const auto& movie : movieLibrary) {
             if(movie.title.find(searchTerm) != string::npos){
@@ -286,22 +305,71 @@ void searchMovies(){
                 }
             }
             cin.ignore(); // Clear buffer after reading number
-        // if the user chose to search by genre
-        }else if(searchOption == ByGenre){
+        } else if(searchOption == ByGenre){
             cout << "Enter genre to search: ";
             getline(cin, searchTerm);
             for(const auto& movie : movieLibrary){
                 if(movie.genre.find(searchTerm) != string::npos){
                     results.push_back(movie);
+                }
+            }
+        } else if(searchOption == Back){
+            return;
+        } else {
+            cout << "Invalid option. Returning to main menu." << endl;
+            return;
+        }
+
+        // Display results
+        if(results.empty()){
+            cout << "No movies found matching your search." << endl;
+        } else {
+            cout << "\nSearch Results:\n";
+            cout << left << setw(30) << "Title" 
+                << setw(10) << "Rating" 
+                << setw(25) << "Director" 
+                << setw(15) << "Release Year" 
+                << setw(20) << "Genre" << endl;
+            cout << string(100, '-') << endl;
+            for(const auto& movie : results){
+                cout << left << setw(30) << movie.title 
+                    << setw(10) << movie.rating 
+                    << setw(25) << movie.director 
+                    << setw(15) << movie.releaseYear 
+                    << setw(20) << movie.genre << endl;
         }
     }
 }
 
+
+// Function that saves the current movie library to a specified file in CSV format that was loaded at the beginning
+// aka it overwrites the file with any changes the user made and saves it
+void saveLibrary(const string& filename) {
+    // opens the file for writing
+    ofstream outputFile(filename);
+    // Write header for the CSV file
+    outputFile << "Title,Director,Release Year,Genre,Rating\n";
+
+    // Write each movie's details in CSV format
+    for (const auto& movie : movieLibrary) {
+        outputFile << movie.title << ","
+                   << movie.director << ","
+                   << movie.releaseYear << ","
+                   << movie.genre << ","
+                   << movie.rating << "\n";
+    }
+
+    outputFile.close();
+    cout << "Movie library saved successfully to " << filename << endl;
+}
+
+
+
+// Main function
 int main(){
     int input;
     cout << "Welcome to Your Movie Library!" << endl;
 
-    // Keeps running until they exit
     while(true){
         cout <<
         "\n\nMovie Library Menu:"
@@ -332,6 +400,8 @@ int main(){
         }else if(input == Menu::SearchMovies){
             searchMovies();
         }else if(input == Menu::Exit){
+            // saves anything the user has edited to the current file they loaded from
+            saveLibrary(currentFilename);
             cout << "Thank you for using your Movie Library!" << endl;
             break;
         }else{
@@ -341,5 +411,7 @@ int main(){
 
     return 0;
 }
+    
+
 
 
