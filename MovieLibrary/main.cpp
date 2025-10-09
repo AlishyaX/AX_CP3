@@ -50,7 +50,7 @@ enum SearchMenu{
 // Function to load the movie library from a specified CSV file
 void loadLibrary(){
     // tested with movies.csv and works
-    // I'm pretty sure the fil etested has to be in the Movie Library folder
+    // I'm pretty sure the file tested has to be in the Movie Library folder
     // gets the user's filename that they want to have the movies from
     string fileName;
     cout << "Enter the filename to load the movie library from: ";
