@@ -69,7 +69,7 @@ What are test cases?
 check to make sure that as we build our program we don't break the classes we have already written.
 
 Why do we use test cases?
-they help us write pre loaded test cases that check.
+they help us write pre loaded test cases that check our code to make sure it works.
 
 How do we create test cases?
 we create tests in seperate files in the same folder.
