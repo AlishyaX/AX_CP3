@@ -60,7 +60,7 @@ What are class diagrams?
 they allow us to visualize what we put in our classes.
 
 How are class diagrams used to show a parent/child relationship?
-they can be used to sh
+they can be used to show a parent/child relationship by having the child class point to the parent class with a clear arrow.
 
 How do you overload operators in a class?
 you overload operators in a class by defining special methods like __eq__ for equality, __str__ for string representation, etc.
@@ -69,12 +69,14 @@ What are test cases?
 check to make sure that as we build our program we don't break the classes we have already written.
 
 Why do we use test cases?
-they help us write pre loaded test cases that check our code to make sure it works.
+they help us check our code to make sure it does a certain condition.
 
 How do we create test cases?
 we create tests in seperate files in the same folder.
 you either do test_filename.py or filename_test.py.
 we use test_filename.py.
+then you use the assert key word to check if the output is what you expect.
+then you click on the testing button and configure the tests on that folder.
 
 
 '''
