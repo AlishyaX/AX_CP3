@@ -1,0 +1,50 @@
+Selection sort: Finds the minimum and switches it to the first index. Then keeps doing that with the next and the next smallest index.
+Initial Array: {5, 2, 9, 1, 5, 6} Process:
+
+Find minimum (1) → swap with first → {1, 2, 9, 5, 5, 6}
+
+Next minimum (2) → already in place
+
+Continue selecting and swapping
+
+Final Sorted Array: {1, 2, 5, 5, 6, 9}
+
+
+
+
+
+Insert Sort: starts with the first two number and switches them based of of > or <. Then at the next one if it is greater than the next one then they switch and the one its switched goes in the correct position
+Initial Array: {5, 2, 9, 1, 5, 6} Process:
+
+Start with 2 → insert before 5 → {2, 5, 9, 1, 5, 6}
+
+Insert 9 → already in place
+
+Insert 1 → shift all → {1, 2, 5, 9, 5, 6}
+
+Continue inserting
+
+Final Sorted Array: {1, 2, 5, 5, 6, 9}
+
+
+
+
+
+Bubble sort: compares the first two numbers and then swaps them in order of greatest/least. Keeps going through the array. at the the end it keeps repeating that process until the whole array is sorted from least to greatest.
+Initial Array: {5, 2, 9, 1, 5, 6} Process:
+
+Compare 5 and 2 → swap → {2, 5, 9, 1, 5, 6}
+
+Compare 5 and 9 → no swap
+
+Compare 9 and 1 → swap → {2, 5, 1, 9, 5, 6}
+
+Continue until largest bubbles to the end
+
+Final Sorted Array: {1, 2, 5, 5, 6, 9}
+
+
+
+Stack: An area of memory used for managing function calls, local variables, and control flow. It is managed by the compiler for quick allocation of memory. (ex. stack of plates = you cant take out the things in the middle)
+
+Heap: An area of memory used for dynamic memory. Stores data is the size is unknown at the time of compiling. Memory must be manually managed by the program. Used for flexible long-lived storage of complex data sturctures, objects, and large files. (ex. a box = You can put many things in it but because its not neat its hard to find things and you have to organize it)
