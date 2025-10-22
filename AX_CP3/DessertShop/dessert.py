@@ -4,6 +4,7 @@
 
 #Parent class
 class DessertItem:
+    """ Holds all of the names of the desserts"""
     name: str
 
     def __init__(self, name = ""):
@@ -11,6 +12,7 @@ class DessertItem:
     
 #Child class
 class Candy(DessertItem):
+    """Holds the candies weight and price per pound"""
     candy_weight: float
     price_per_pound: float
 
@@ -23,6 +25,7 @@ class Candy(DessertItem):
 
 #Child class
 class Cookie(DessertItem):
+    """ Holds the amount of cookies and the price per dozen"""
     cookie_quantity: int
     price_per_dozen: float
 
@@ -34,6 +37,7 @@ class Cookie(DessertItem):
 
 #Child class
 class IceCream(DessertItem):
+    """ Holds the amount of scoops and the price per scoop"""
     scoop_count: int
     price_per_scoop: float
 
@@ -45,6 +49,7 @@ class IceCream(DessertItem):
 
 #Granchild class frm Icecream
 class Sundae(IceCream):
+    """ Holds the name, scoop count, and price per scoop from the Icecream class and initializes topping name and price """
     topping_name: str
     topping_price: float
 
@@ -53,8 +58,9 @@ class Sundae(IceCream):
         self.topping_name = topping_name
         self.topping_price = topping_price
 
-#Class that has a list of all of the dessert items using methods of ass and __len__
+
 class Order:
+    """ Class that has a list of all of the dessert items using methods of add and __len__"""
     def __init__(self):
         self.order = []
     
@@ -64,5 +70,6 @@ class Order:
     def __len__(self) -> int:
         return len(self.order)
     
+    #So that I can use the for loop to display the desserts    
     def __iter__(self):
         return iter(self.order)
