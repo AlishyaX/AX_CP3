@@ -1,4 +1,4 @@
-# This holds the classes
+# AX Dessert classes
 
 #all dessert items inherit name 
 

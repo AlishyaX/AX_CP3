@@ -2,14 +2,17 @@
 
 from dessert import DessertItem
 
+#Tests the default value
 def test_default_values():
     item = DessertItem()
     assert item.name == ""
 
+#Tests the provided values
 def test_provided_values():
     item = DessertItem("Brownie")
     assert item.name == "Brownie"
 
+#Tests the updates values
 def test_updated_values():
     item = DessertItem("Brownie")
     item.name = "Cheesecake"

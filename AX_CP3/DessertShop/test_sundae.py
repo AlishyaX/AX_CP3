@@ -2,6 +2,7 @@
 
 from dessert import Sundae
 
+#Tests the default value
 def test_default_values():
     sundae = Sundae()
     assert sundae.name == ""
@@ -10,6 +11,7 @@ def test_default_values():
     assert sundae.topping_name == ""
     assert sundae.topping_price == 0.0
 
+#Tests the provided values
 def test_provided_values():
     sundae = Sundae("Vanilla", 3, 1.50, "Hot Fudge", 0.75)
     assert sundae.name == "Vanilla"
@@ -18,6 +20,7 @@ def test_provided_values():
     assert sundae.topping_name == "Hot Fudge"
     assert sundae.topping_price == 0.75
 
+#Tests the updates values
 def test_updated_values():
     sundae = Sundae("Vanilla", 3, 1.50, "Hot Fudge", 0.75)
     sundae.name = "Chocolate"
