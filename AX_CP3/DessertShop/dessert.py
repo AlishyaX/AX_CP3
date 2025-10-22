@@ -2,12 +2,14 @@
 
 #all dessert items inherit name 
 
+#Parent class
 class DessertItem:
     name: str
 
     def __init__(self, name = ""):
         self.name = name
     
+#Child class
 class Candy(DessertItem):
     candy_weight: float
     price_per_pound: float
@@ -19,7 +21,7 @@ class Candy(DessertItem):
 
 
 
-# Cookie
+#Child class
 class Cookie(DessertItem):
     cookie_quantity: int
     price_per_dozen: float
@@ -30,7 +32,7 @@ class Cookie(DessertItem):
         self.price_per_dozen = price_per_dozen
 
 
-# IceCream
+#Child class
 class IceCream(DessertItem):
     scoop_count: int
     price_per_scoop: float
@@ -41,7 +43,7 @@ class IceCream(DessertItem):
         self.price_per_scoop = price_per_scoop
 
 
-# Sundae (inherits from IceCream)
+#Granchild class frm Icecream
 class Sundae(IceCream):
     topping_name: str
     topping_price: float
@@ -51,6 +53,7 @@ class Sundae(IceCream):
         self.topping_name = topping_name
         self.topping_price = topping_price
 
+#Class that has a list of all of the dessert items using methods of ass and __len__
 class Order:
     def __init__(self):
         self.order = []

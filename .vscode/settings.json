@@ -1,0 +1,7 @@
+{
+    "python.testing.pytestArgs": [
+        "AX_CP3"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}
