@@ -1,7 +1,12 @@
 # AX Dessert Shop Project
 
+import tabulate
+
 from dessert import *
 
+data = [["Bruce Wayne", "Batman", 3852767384], ["Oliver Queen", "Green Arrow", 8586748573], ["Clark Kent", "Reporter", 654], ["Barry Allen", "CSI", 1], ["John Smith", "Unemployed", 32]]
+
+print(tabulate(data, headers=["Name", "job", "number"]))
 def main():
     #make an instance of your order
     my_order = Order()
