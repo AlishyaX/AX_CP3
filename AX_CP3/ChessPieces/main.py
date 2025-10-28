@@ -1,48 +1,24 @@
 # AX Main Function for chess game
 
-'''
-EXAMPLE OUTPUT:
-White Knight 1, Symbol K  is at B1
-
-Black Pawn 5, Symbol P is at D7
-
-White Pawn 4, Symbol P is at D2
-
-Black Bishop 2, Symbol B is at C8
-
-White Rook 1, Symbol R is at A1
-
-***After moves***
-
-White Knight 1, Symbol K  is at C3
-
-Black Pawn 5, Symbol P is at D5
-
-White Pawn 4, Symbol P is at D3
-
-Black Bishop 2, Symbol B is at F5
-
-White Rook 1 cannot move to A4
-'''
-
 from chess_pieces import *
 
 
 #prints the info in the way we want the output to be
 def printPiece(label: str, piece, number: int):
     if piece:
-        print(f"{label} {piece.__class__.__name__} {number}, Symbol {piece.getSymbol()} is at {piece.getPosition()}")
+        print(f"{label} {piece.__class__.__name__} {number}, Symbol {piece.getSymbol()} is at {piece.getPosition().upper()}")
 
 def main():
     #To run the game
     game = ChessGame()
 
-    #p for p is looping through each piece of the whole board game of that color and specifies its type and index
-    white_knight1 = [p for p in game.whitePieces if isinstance(p, Knight)][0]  # B1
-    black_pawn5 = [p for p in game.blackPieces if isinstance(p, Pawn)][4]      # D7
-    white_pawn4 = [p for p in game.whitePieces if isinstance(p, Pawn)][3]      # D2
-    black_bishop2 = [p for p in game.blackPieces if isinstance(p, Bishop)][1]  # C8
-    white_rook1 = [p for p in game.whitePieces if isinstance(p, Rook)][0]      # A1
+    #p for p is looping through each piece of the whole board game of that color and gets its position "on the board"
+    white_knight1 = next(p for p in game.whitePieces if isinstance(p, Knight) and p.getPosition() == "b1")
+    black_pawn5 = next(p for p in game.blackPieces if isinstance(p, Pawn) and p.getPosition() == "d7")
+    white_pawn4 = next(p for p in game.whitePieces if isinstance(p, Pawn) and p.getPosition() == "d2")
+    black_bishop2 = next(p for p in game.blackPieces if isinstance(p, Bishop) and p.getPosition() == "c8")
+    white_rook1 = next(p for p in game.whitePieces if isinstance(p, Rook) and p.getPosition() == "a1")
+
 
     # Initial positions
     printPiece("White", white_knight1, 1)
