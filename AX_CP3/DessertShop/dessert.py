@@ -1,4 +1,5 @@
 # AX Dessert classes
+
 from abc import ABC, abstractmethod
 #all dessert items inherit name 
 
@@ -15,10 +16,9 @@ class DessertItem(ABC):
     def calculate_cost() -> float:
         pass
 
-    def calculate_tax(price, tax_rate) -> float:
+    def calculate_tax(self) -> float:
         #calculates the and returns the actual tax for the item, rounded to 2 decimal places
-        tax = price*(tax_rate/100)
-        return round(tax, 2)
+        return round(self.calculate_cost()*(self.tax_percent/100), 2)
 
 
     
@@ -33,8 +33,8 @@ class Candy(DessertItem):
         self.candy_weight = candy_weight
         self.price_per_pound = price_per_pound
 
-    def calculate_cost(price_per_pound, candy_weight):
-        return price_per_pound*candy_weight
+    def calculate_cost(self):
+        return round(self.price_per_pound*self.candy_weight, 2)
 
 
 
@@ -49,8 +49,8 @@ class Cookie(DessertItem):
         self.dozen = dozen
         self.price_per_dozen = price_per_dozen
 
-    def calculate_cost(price_per_dozen, dozen):
-        return price_per_dozen*dozen
+    def calculate_cost(self):
+        return round(self.price_per_dozen*self.dozen, 2)
 
 #Child class
 class IceCream(DessertItem):
@@ -63,8 +63,8 @@ class IceCream(DessertItem):
         self.scoop_count = scoop_count
         self.price_per_scoop = price_per_scoop
 
-    def calculate_cost(price_per_scoop, scoop_count):
-        return price_per_scoop*scoop_count
+    def calculate_cost(self):
+        return round(self.price_per_scoop*self.scoop_count, 2)
 
 
 #Granchild class frm Icecream
@@ -78,31 +78,25 @@ class Sundae(IceCream):
         self.topping_name = topping_name
         self.topping_price = topping_price
 
-    def calculate_cost(scoop_count, price_per_scoop, topping_price):
-        return (scoop_count*price_per_scoop)+topping_price
+    def calculate_cost(self):
+        return round((self.scoop_count*self.price_per_scoop)+self.topping_price, 2)
 
 
 class Order:
     """ Class that has a list of all of the dessert items using methods of add and __len__"""
-    def __init__(self, calculate_tax):
+    def __init__(self):
         self.order = []
-        self.calculate_tax = calculate_tax
 
     def add(self, dessert_item: DessertItem):
         self.order.append(dessert_item)
 
-    def order_cost():
-        #that calculates and returns the total cost for all items in the order
-        a = Candy()
-        b = Cookie()
-        c = IceCream()
-        d = Sundae()
-        print("The cost for all of the items in the order: ", a+b+c+d)
+    def order_cost(self):
+         return round(sum(item.calculate_cost() for item in self.order), 2)
 
     def order_tax(self):
         #calculates and returns the total tax for all items in the order
         #Working on this
-        tax = self.calculate_tax.calculate_tax()
+        return round(sum(item.calculate_tax() for item in self.order), 2)
 
     def __len__(self) -> int:
         return len(self.order)
