@@ -3,19 +3,21 @@
 from abc import ABC, abstractmethod
 #all dessert items inherit name 
 
-#Parent class
+#Parent class(Abstract Class)
 class DessertItem(ABC):
-    """ Holds all of the names of the desserts"""
+    """ Holds all of the names of the desserts and the method to calculate the costs of the desserts/calculating the tax"""
     name: str
 
     def __init__(self, name = "", tax_percent = 7.25):
         self.name = name
         self.tax_percent = tax_percent
 
+    #Makes all of the desserts need to calculate the cost
     @abstractmethod
     def calculate_cost() -> float:
         pass
 
+    #The tax for each of the desserts is then added together in the order class
     def calculate_tax(self) -> float:
         #calculates the and returns the actual tax for the item, rounded to 2 decimal places
         return round(self.calculate_cost()*(self.tax_percent/100), 2)
@@ -34,6 +36,7 @@ class Candy(DessertItem):
         self.price_per_pound = price_per_pound
 
     def calculate_cost(self):
+        # finds the cost of how much candy depending on the weight
         return round(self.price_per_pound*self.candy_weight, 2)
 
 
@@ -50,6 +53,7 @@ class Cookie(DessertItem):
         self.price_per_dozen = price_per_dozen
 
     def calculate_cost(self):
+        # finds the cost of the price per each dozen
         return round(self.price_per_dozen*self.dozen, 2)
 
 #Child class
@@ -64,6 +68,7 @@ class IceCream(DessertItem):
         self.price_per_scoop = price_per_scoop
 
     def calculate_cost(self):
+        # finds the cost for the price for all of the scoops
         return round(self.price_per_scoop*self.scoop_count, 2)
 
 
@@ -79,6 +84,7 @@ class Sundae(IceCream):
         self.topping_price = topping_price
 
     def calculate_cost(self):
+        # finds the cost of the scoops and the toppings
         return round((self.scoop_count*self.price_per_scoop)+self.topping_price, 2)
 
 
@@ -95,7 +101,6 @@ class Order:
 
     def order_tax(self):
         #calculates and returns the total tax for all items in the order
-        #Working on this
         return round(sum(item.calculate_tax() for item in self.order), 2)
 
     def __len__(self) -> int:
